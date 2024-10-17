@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table Generator</title>
+    <style>
+        /* Base styling for body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Styling the main container */
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Title styling */
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* Input styling */
+        input {
+            width: 80%;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        /* Button styling */
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Error message styling */
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        /* Styling for the generated table */
+        .table-container {
+            margin-top: 20px;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #f9f9f9;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        td {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            input, button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Multiplication Table Generator</h1>
+
+        <!-- Input field and error message -->
+        <input type="number" id="numberInput" placeholder="Enter a number (>= 0)" />
+        <div class="error" id="errorMessage">Please insert a correct number (>= 0).</div>
+
+        <!-- Button to generate the table -->
+        <button onclick="generateTable()">Generate Table</button>
+
+        <!-- Table container -->
+        <div class="table-container">
+            <table id="multiplicationTable"></table>
+        </div>
+    </div>
+
+    <script>
+        // Function to generate the multiplication table
+        function generateTable() {
+            const numberInput = document.getElementById('numberInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const table = document.getElementById('multiplicationTable');
+            const number = parseInt(numberInput.value);
+
+            // Clear the table before generating a new one
+            table.innerHTML = "";
+
+            // Validate input (number should be >= 0)
+            if (isNaN(number) || number < 0) {
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Hide the error message if the input is valid
+            errorMessage.style.display = 'none';
+
+            // Create table header
+            let headerRow = table.insertRow();
+            let th = document.createElement("th");
+            th.innerHTML = `Multiplication Table of ${number}`;
+            headerRow.appendChild(th);
+
+            // Create table rows
+            for (let i = 1; i <= 10; i++) {
+                let row = table.insertRow();
+                let cell = row.insertCell();
+                cell.innerHTML = `${i} * ${number} = ${i * number}`;
+            }
+        }
+    </script>
+
+</body>
+</html>
